@@ -1,0 +1,30 @@
+- 👋 Hi, I’m @nurlitahsnh
+- 👀 I’m interested in ...
+- 🌱 I’m currently learning ...
+- 💞️ I’m looking to collaborate on ...
+- 📫 How to reach me ...
+
+<!---
+nurlitahsnh/nurlitahsnh is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+You can click the Preview link to take a look at your changes.
+--->
+import pandas as pd
+import sys
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import StandardScaler
+# np.set_printoptions(threshold=sys.maxsize)
+np.seterr(divide='ignore', invalid='ignore')
+data = pd.read_csv('train.csv')
+data.head(10)
+
+scaler = MinMaxScaler()
+X = data[['LotFrontage', 'LotArea']].astype(float).fillna(0)
+Y = data['SalePrice'].astype(float).fillna(0)
+
+new_X = np.array(StandardScaler().fit_transform(X)).reshape(2, -1)
+new_Y = np.array(StandardScaler().fit_transform(Y.values.reshape(-1, 1)))
+print()
+itung = np.dot(np.dot((np.dot(new_X.T, new_X)**-1), new_X.T).reshape(2, -1), new_Y)
+print(itung)
